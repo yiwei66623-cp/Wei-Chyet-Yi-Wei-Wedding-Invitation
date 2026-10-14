@@ -17,7 +17,7 @@ window.WEDDING = {
   venue: "Crowne Plaza Penang Straits City",
   address: "PMT 5150, Jalan Bagan Luar, Bandar Selat, 12000 Butterworth, Penang, Malaysia",
 
-  // RSVP: paste the Web app URL from Google Apps Script (see README, Part 1).
+  // RSVP: https://script.google.com/macros/s/AKfycbyLovvlBXQ15gg5ctVdrJ_7bmpz-tLGvAPuQTTzehQJwrcw2-A6j8_1sJPX7HG3_BKLBg/exec.
   rsvpEndpoint: "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE",
   // Highest guest count offered. Per-invitation limit: share  yoursite/?max=2
   maxGuests: 10,
