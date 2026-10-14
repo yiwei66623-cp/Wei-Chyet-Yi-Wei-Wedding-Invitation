@@ -7,6 +7,7 @@
 
   /* ---- fill text from config ---- */
   var bind = {
+    groomShort:C.groomShort, brideShort:C.brideShort, venueLine1:C.venueLine1, venueLine2:C.venueLine2,
     groom:C.groom, bride:C.bride, groomUpper:C.groom.toUpperCase(), brideUpper:C.bride.toUpperCase(),
     venue:C.venue, address:C.address
   };
@@ -24,7 +25,13 @@
   $("#replay").addEventListener("click", function(){
     intro.classList.remove("play"); void intro.offsetWidth; intro.classList.add("play");
   });
-  requestAnimationFrame(function(){ requestAnimationFrame(function(){ intro.classList.add("play"); }); });
+  (function(){
+    var started=false;
+    function go(){ if(started) return; started=true; requestAnimationFrame(function(){ requestAnimationFrame(function(){ intro.classList.add("play"); }); }); }
+    var imgs=[].slice.call(intro.querySelectorAll("img")).map(function(i){ return i.decode ? i.decode().catch(function(){}) : Promise.resolve(); });
+    Promise.all(imgs).then(go);
+    setTimeout(go,1500);
+  })();
 
   /* ---- background music: starts on the guest's first tap, can be switched off ---- */
   (function(){
@@ -101,12 +108,24 @@
   lb.addEventListener("click",function(e){ if(e.target===lb) lb.close(); });
   lb.addEventListener("keydown",function(e){ if(e.key==="ArrowLeft") show(cur-1); if(e.key==="ArrowRight") show(cur+1); });
 
-  /* ---- reveal on scroll ---- */
-  var targets = $$(".reveal").concat($$(".gallery button"));
-  if("IntersectionObserver" in window){
-    var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target);} }); },{threshold:.12});
-    targets.forEach(function(t){io.observe(t)});
-  } else targets.forEach(function(t){t.classList.add("in")});
+  /* ---- reveal on scroll: calm, staggered, one-time ---- */
+  (function(){
+    var sections=$$(".sec").concat($$(".closing"));
+    sections.forEach(function(sec){
+      var kids=[].slice.call((sec.classList.contains("closing")?sec.querySelector(".closing-text"):sec).children);
+      var n=0;
+      kids.forEach(function(k){
+        if(k.classList.contains("corner")||k.classList.contains("hp")) return;
+        k.classList.add("rv"); k.style.setProperty("--td",(n*0.16).toFixed(2)+"s"); n++;
+      });
+    });
+    $$(".gallery button").forEach(function(b,i){ b.style.setProperty("--td",(i*0.25).toFixed(2)+"s"); });
+    var galEl=$("#gallery"); var targets=sections.concat(galEl?[galEl]:[]);
+    if("IntersectionObserver" in window){
+      var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); if(e.target.id==="gallery") $$(".gallery button").forEach(function(b){b.classList.add("in")}); io.unobserve(e.target);} }); },{threshold:.18,rootMargin:"0px 0px -6% 0px"});
+      targets.forEach(function(t){io.observe(t)});
+    } else targets.forEach(function(t){t.classList.add("in")}); $$(".gallery button").forEach(function(b){b.classList.add("in")});
+  })();
 
   /* ---- countdown (absolute time, so it is correct in every time zone) ---- */
   var target = new Date(C.startsAt).getTime();

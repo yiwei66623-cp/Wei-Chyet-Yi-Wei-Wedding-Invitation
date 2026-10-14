@@ -1,4 +1,4 @@
-# Wedding e-invitation – Ng Wei Chyet & Lim Yi Wei
+# Wedding e-invitation – Wei Chyet & Yi Wei
 
 Files: `index.html` · `style.css` · `script.js` · `config.js` (all your details) · `assets/` · `apps-script/Code.gs`
 

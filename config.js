@@ -2,8 +2,13 @@
    EDIT YOUR DETAILS HERE – no other file needs changing.
    ========================================================== */
 window.WEDDING = {
-  groom: "Ng Wei Chyet",
-  bride: "Lim Yi Wei",
+  groom: "Wei Chyet",
+  bride: "Yi Wei",
+  // Short names printed on the invitation card.
+  groomShort: "Wei Chyet",
+  brideShort: "Yi Wei",
+  venueLine1: "Crowne Plaza Penang",
+  venueLine2: "Straits City",
 
   // Exact start time in Malaysia time (+08:00). Used by the countdown and calendar.
   startsAt: "2026-12-27T19:00:00+08:00",
@@ -17,7 +22,7 @@ window.WEDDING = {
   venue: "Crowne Plaza Penang Straits City",
   address: "PMT 5150, Jalan Bagan Luar, Bandar Selat, 12000 Butterworth, Penang, Malaysia",
 
-  // RSVP: https://script.google.com/macros/s/AKfycbyLovvlBXQ15gg5ctVdrJ_7bmpz-tLGvAPuQTTzehQJwrcw2-A6j8_1sJPX7HG3_BKLBg/exec.
+  // RSVP: paste the Web app URL from Google Apps Script (see README, Part 1).
   rsvpEndpoint: "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE",
   // Highest guest count offered. Per-invitation limit: share  yoursite/?max=2
   maxGuests: 10,
@@ -28,11 +33,11 @@ window.WEDDING = {
 
   // Gallery and closing photographs. Add more by adding lines.
   photos: [
-    { src: "assets/photos/couple-01.jpg", alt: "Ng Wei Chyet and Lim Yi Wei beside a tall wooden door", focus: "50% 45%" },
-    { src: "assets/photos/couple-02.jpg", alt: "Ng Wei Chyet and Lim Yi Wei smiling together in a white room", focus: "50% 40%" }
+    { src: "assets/photos/couple-01.jpg", alt: "Wei Chyet and Yi Wei beside a tall wooden door", focus: "50% 45%" },
+    { src: "assets/photos/couple-02.jpg", alt: "Wei Chyet and Yi Wei smiling together in a white room", focus: "50% 40%" }
   ],
   closingPhoto: "assets/photos/couple-02.jpg",
-  closingFocus: "50% 38%",
+  closingFocus: "50% 55%",
 
   // Slow auto-scroll button (speed in pixels per second; 25 = very slow, 60 = brisk).
   autoScroll: true,
