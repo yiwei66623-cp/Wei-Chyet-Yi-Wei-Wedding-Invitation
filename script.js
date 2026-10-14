@@ -26,11 +26,24 @@
     intro.classList.remove("play"); void intro.offsetWidth; intro.classList.add("play");
   });
   (function(){
-    var started=false;
-    function go(){ if(started) return; started=true; requestAnimationFrame(function(){ requestAnimationFrame(function(){ intro.classList.add("play"); }); }); }
+    var started=false, opened=false;
+    var reduce=window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function open(){ if(opened) return; opened=true; intro.classList.add("ready"); requestAnimationFrame(function(){ requestAnimationFrame(function(){ intro.classList.add("play"); }); }); }
+    function go(){
+      if(started) return; started=true;
+      if(reduce || !C.music){ open(); return; }
+      intro.classList.add("ready");
+      /* try real autoplay first (some browsers allow it); if blocked, the guest's tap does it */
+      var a=$("#bgm"); if(!a.src) a.src=C.music;
+      var p=a.play(); if(p&&p.then) p.then(function(){ open(); }).catch(function(){});
+    }
     var imgs=[].slice.call(intro.querySelectorAll("img")).map(function(i){ return i.decode ? i.decode().catch(function(){}) : Promise.resolve(); });
     Promise.all(imgs).then(go);
     setTimeout(go,1500);
+    /* the guest's tap is the browser-approved moment to start the music, then the envelope opens */
+    intro.addEventListener("click",function(e){ if(e.target.closest("a,#music,#replay,#auto")) return; open(); });
+    $("#tapOpen").addEventListener("click",function(e){ e.stopPropagation(); open(); });
+    $("#replay").addEventListener("click",function(){ opened=true; });
   })();
 
   /* ---- background music: starts on the guest's first tap, can be switched off ---- */

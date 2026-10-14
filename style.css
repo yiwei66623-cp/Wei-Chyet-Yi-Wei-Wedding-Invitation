@@ -464,3 +464,12 @@ select{background-position:calc(100% - 8px) 52%,calc(100% - 2px) 52%}
 .closing .hero-shade{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(30,22,16,0) 0%,rgba(30,22,16,0) 40%,rgba(30,22,16,.78) 66%,rgba(30,22,16,.96) 100%)}
 .closing-text{z-index:2;padding-bottom:5.6rem}
 .closing .lead,.closing .lead *{color:#fbf6ee!important;opacity:1}
+
+/* tap to open gate: envelope waits (sealed) until the guest taps; the tap also starts the music */
+.intro.ready:not(.play) .scene{opacity:1;transition:opacity 1.2s ease}
+.tap-open{position:absolute;left:0;right:0;bottom:calc(5.2rem + env(safe-area-inset-bottom));margin:0 auto;width:max-content;z-index:5;background:none;border:1px solid rgba(251,246,238,.55);color:#fbf6ee;font:500 .72rem/1 "Jost",system-ui,sans-serif;letter-spacing:.34em;text-transform:uppercase;padding:1.05rem 1.9rem;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .9s ease,background .6s ease,border-color .6s ease}
+.tap-open:hover{background:rgba(251,246,238,.1);border-color:#fbf6ee}
+.intro.ready:not(.play) .tap-open{opacity:1;pointer-events:auto;animation:tapglow 2.8s ease-in-out infinite}
+.intro.play .tap-open{opacity:0;pointer-events:none;animation:none}
+@keyframes tapglow{0%,100%{opacity:.55}50%{opacity:1}}
+@media(prefers-reduced-motion:reduce){.tap-open{display:none}}
