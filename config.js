@@ -41,7 +41,7 @@ window.WEDDING = {
 
   // Slow auto-scroll button (speed in pixels per second; 25 = very slow, 60 = brisk).
   autoScroll: true,
-  autoScrollSpeed: 38,
+  autoScrollSpeed: 60,
 
   // Background music (original soft piano loop). Replace the file, or set "" for no music.
   music: "assets/audio/wedding-theme.mp3",
